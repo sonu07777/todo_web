@@ -1,13 +1,21 @@
 import { useContext } from "react";
 import Todo from "../Todo/Todo";
-import todoContext from "../../context/todo.context";
-import dispatchTodoContext from "../../context/dispatchTodoContext";
+// import todoContext from "../../context/todo.context";
+// import dispatchTodoContext from "../../context/dispatchTodoContext";
+import { useDispatch, useSelector } from "react-redux";
+// import { onDelete } from "../../actions/todoAction";
 
-function TodoList() {
-  const { List, setList } = useContext(todoContext);
-  const {dispatch} = useContext(dispatchTodoContext)
-  function onFinished(todo,isFinished){
-    dispatch({type:"finished_todo",payload:{todo:todo,isFinished:isFinished}}) 
+function TodoList({todoFinished,onEdit,onDeleteTodo}) {
+  // const { List, setList } = useContext(todoContext);
+  const List = useSelector((state) =>state.todo); //the todo which is present in the state.todo is got from the combinedReducer
+  // const { dispatch } = useContext(dispatchTodoContext);
+  const dispatch = useDispatch();
+  function onFinished(todo, isFinished) {
+    // dispatch({
+    //   type: "finished_todo",
+    //   payload: { todo: todo, isFinished: isFinished },
+    // });
+    todoFinished(todo,isFinished)
     // console.log(isFinished);
     // const updatedList = List.map((t) => {
     //   if (t.id == todo.id) {
@@ -18,10 +26,12 @@ function TodoList() {
     // });
     // setList(updatedList);
   }
-  function onEdit(todo,todoText){
-    
-    dispatch({type:"edit_todo", payload:{todo:todo,todoText:todoText}})
-
+  function onEdit(todo, todoText) {
+    // dispatch({
+    //   type: "edit_todo",
+    //   payload: { todo: todo, todoText: todoText },
+    // });
+    onEdit(todo,todoText)
     /*const updateList = List.map((t)=>{
       if(t.id == todo.id){
         todo.todoData = todoText;
@@ -30,8 +40,9 @@ function TodoList() {
     })
     setList(updateList)*/
   }
-  function onDelete (todo){
-    dispatch({type:"delete_todo",payload:{todo:todo}})
+  function onDelete(todo) {
+    // dispatch({ type: "delete_todo", payload: { todo: todo } });
+    onDeleteTodo(todo)
     // const updateList = List.filter(
     //   (t) => t.id != todo.id
     //   // {
@@ -50,15 +61,15 @@ function TodoList() {
             key={todo.id}
             id={todo.id}
             isFinished={todo.finished}
-            changeFinished={(isFinished)=>{onFinished(todo,isFinished)}}
-            onDelete={() => {
-              onDelete(todo)
+            changeFinished={(isFinished) => {
+              onFinished(todo, isFinished);
             }}
-            onEdit = {
-              (todoText)=>{
-                onEdit(todo,todoText)
-              }
-            }
+            onDelete={() => {
+              onDelete(todo);
+            }}
+            onEdit={(todoText) => {
+              onEdit(todo, todoText);
+            }}
           />
         ))}
     </div>

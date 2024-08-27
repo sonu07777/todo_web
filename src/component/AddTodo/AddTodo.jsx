@@ -1,9 +1,12 @@
-import { useContext, useState } from "react";
-import dispatchTodoContext from "../../context/dispatchTodoContext";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+// import dispatchTodoContext from "../../context/dispatch3";
+import { addingTodo } from "../../actions/todoAction.js";
 
-function AddTodo(/*{ updateList }*/) {
+function AddTodo(/*{ updateList }*/ {addTodo}) {
   const [inputText, setInputText] = useState("");
-  const {dispatch} = useContext(dispatchTodoContext);
+  // const {dispatch} = useContext(dispatchTodoContext);
+  const dispatch = useDispatch();
   return (
     <div>
       <input
@@ -15,7 +18,7 @@ function AddTodo(/*{ updateList }*/) {
       <button
         onClick={() => {
           // updateList(inputText);
-          dispatch({type:"add_todo" ,payload:{todoText:inputText}})
+          addTodo(inputText)
           setInputText("");
         }}>
         Add
