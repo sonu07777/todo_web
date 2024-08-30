@@ -18,7 +18,7 @@ function AddTodo(/*{ updateList }*/ {addTodo}) {
       <button
         onClick={() => {
           // updateList(inputText);
-          addTodo(inputText)
+          addTodo({todoText:inputText})
           setInputText("");
         }}>
         Add
