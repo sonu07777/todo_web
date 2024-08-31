@@ -21,10 +21,10 @@ const todoSlice = createSlice({
       let todo = action.payload.todo;
       let todoText = action.payload.todoText;
 
-      // if (!todo || !todo.id) {
-      //   console.error("Invalid todo object:", todo);
-      //   return;
-      // }
+      if (!todo || !todo.id) {
+        console.error("Invalid todo object:", todo);
+        return;
+      }
 
       state.todoList = state.todoList.map((t) => {
         console.log(t);

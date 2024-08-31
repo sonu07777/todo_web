@@ -19,7 +19,8 @@ function App() {
   const dispatch = useDispatch();
   const actions =bindActionCreators({addTodo,todoFinished,editTodo,onDeleteTodo},dispatch)
   return (
-    <>
+    <div className="main">
+      <div className="insider">
       {/* // <todoContext.Provider value={{ List }}> */}
       {/* <DispatchTodoContext.Provider value={{ dispatch }}> */}
       <AddTodo addTodo={actions.addTodo}
@@ -33,7 +34,8 @@ function App() {
       <TodoList todoFinished={actions.todoFinished} editTodo={actions.editTodo} onDeleteTodo ={actions.onDeleteTodo}  />
       {/* </DispatchTodoContext.Provider> */}
       {/* </todoContext.Provider> */}
-    </>
+      </div>
+    </div>
   );
 }
 
